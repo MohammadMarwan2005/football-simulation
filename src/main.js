@@ -19,6 +19,12 @@ scene.add(groundMesh);
 let lastTime = performance.now();
 let accumulator = 0;
 
+// Phase 2 verification: log peak height after each bounce. A peak occurs
+// when v.y crosses from positive to non-positive. Each peak should be
+// ≈ e² × the previous (≈ 0.49 with e = 0.7).
+let lastVy = ball.v.y;
+console.log('spawn height:', ball.r.y.toFixed(3), 'm');
+
 function frame(now) {
   let elapsed = (now - lastTime) / 1000;
   lastTime = now;
@@ -27,6 +33,10 @@ function frame(now) {
 
   while (accumulator >= DT) {
     step(ball, world, DT);
+    if (lastVy > 0 && ball.v.y <= 0) {
+      console.log('peak:', ball.r.y.toFixed(3), 'm');
+    }
+    lastVy = ball.v.y;
     accumulator -= DT;
   }
 

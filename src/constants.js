@@ -20,3 +20,11 @@ export const BALL_SPAWN_HEIGHT = 5; // m, default initial r.y
 
 // Rolling-mode trigger: |v·n| / |v_t| below this ⇒ ball is rolling.
 export const ROLLING_RATIO = 0.17;
+
+// Solid uniform sphere — moment of inertia I = INERTIA_FACTOR · m · R².
+export const INERTIA_FACTOR = 2 / 5;
+// Tangential stick impulse magnitude needed to zero v_ct on a solid sphere:
+//   J_stick = TANGENTIAL_STICK_FACTOR · m · |v_ct|
+// The 2/7 = 1/(1 + m·R²/I) coupling factor accounts for the linked
+// translation/rotation update of a uniform sphere at a contact point.
+export const TANGENTIAL_STICK_FACTOR = 2 / 7;
