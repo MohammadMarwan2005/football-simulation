@@ -33,3 +33,5 @@ export const TANGENTIAL_STICK_FACTOR = 2 / 7;
 export const SPHERE_VOLUME_COEF = 4 / 3;
 // Viscous torque on a sphere in still air:  τ_visc = −VISCOUS_TORQUE_COEF · π · μ_air · R³ · ω
 export const VISCOUS_TORQUE_COEF = 8;
+
+export const DEG_TO_RAD = Math.PI / 180;

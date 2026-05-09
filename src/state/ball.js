@@ -1,14 +1,16 @@
 import { Vector3, Quaternion } from '../math.js';
 import {
-  BALL_MASS, BALL_RADIUS, BALL_SPAWN_HEIGHT,
+  BALL_MASS, BALL_RADIUS,
   CD, CL, RESTITUTION, MU_SLIDING, MU_ROLLING,
 } from '../constants.js';
 
+// Ball sits at rest on the ground at the origin until a click fires it
+// (see src/input/shoot.js). r.y = R puts the ball just touching y=0.
 export function initialBall() {
   return {
-    r: new Vector3(0, BALL_SPAWN_HEIGHT, 0),
-    v: new Vector3(5, 5, 0),       // horizontal+upward shot — drag visibly shortens range
-    omega: new Vector3(0, 0, 8),   // backspin around Z — visible rotation; viscous decay is slow
+    r: new Vector3(0, BALL_RADIUS, 0),
+    v: new Vector3(0, 0, 0),
+    omega: new Vector3(0, 0, 0),
     q: new Quaternion(),
     mode: 'flying',
     m: BALL_MASS,

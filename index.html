@@ -7,10 +7,29 @@
     <style>
       html, body { margin: 0; padding: 0; height: 100%; background: #0a0a0a; overflow: hidden; }
       canvas { display: block; }
+      #ui {
+        position: fixed; top: 12px; left: 12px;
+        background: rgba(0, 0, 0, 0.6); color: #ccc;
+        font-family: system-ui, sans-serif; font-size: 13px;
+        padding: 12px 14px; border-radius: 6px;
+        user-select: none; pointer-events: auto;
+      }
+      #ui label { display: block; margin: 4px 0; }
+      #ui input[type="range"] { width: 200px; vertical-align: middle; margin: 0 6px; }
+      #ui .val { display: inline-block; min-width: 32px; text-align: right; color: #eee; }
+      #ui .hint { margin-top: 8px; font-size: 11px; color: #999; }
     </style>
   </head>
   <body>
     <canvas id="app"></canvas>
+    <div id="ui">
+      <label>ω.x<input type="range" id="ox" min="-50" max="50" step="1" value="0"><span class="val" id="ox-val">0</span></label>
+      <label>ω.y<input type="range" id="oy" min="-50" max="50" step="1" value="0"><span class="val" id="oy-val">0</span></label>
+      <label>ω.z<input type="range" id="oz" min="-50" max="50" step="1" value="0"><span class="val" id="oz-val">0</span></label>
+      <label>power<input type="range" id="pow" min="1" max="40" step="1" value="18"><span class="val" id="pow-val">18</span></label>
+      <label>elevation°<input type="range" id="el" min="0" max="80" step="1" value="30"><span class="val" id="el-val">30</span></label>
+      <div class="hint">Click on the canvas to shoot. Drag/scroll to orbit the camera.</div>
+    </div>
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
