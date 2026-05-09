@@ -8,7 +8,7 @@ import { sync } from './render/sync.js';
 
 const ball = initialBall();
 const world = initialWorld();
-const { scene, camera, renderer } = createScene();
+const { scene, camera, renderer, controls } = createScene();
 
 const ballMesh = createBallMesh(ball);
 const groundMesh = createGroundMesh();
@@ -19,11 +19,9 @@ scene.add(groundMesh);
 let lastTime = performance.now();
 let accumulator = 0;
 
-// Phase 2 verification: log peak height after each bounce. A peak occurs
-// when v.y crosses from positive to non-positive. Each peak should be
-// ≈ e² × the previous (≈ 0.49 with e = 0.7).
-let lastVy = ball.v.y;
-console.log('spawn height:', ball.r.y.toFixed(3), 'm');
+// Periodic state logging — once per simulated second.
+let simTime = 0;
+let nextLog = 0;
 
 function frame(now) {
   let elapsed = (now - lastTime) / 1000;
@@ -33,16 +31,27 @@ function frame(now) {
 
   while (accumulator >= DT) {
     step(ball, world, DT);
-    if (lastVy > 0 && ball.v.y <= 0) {
-      console.log('peak:', ball.r.y.toFixed(3), 'm');
+    simTime += DT;
+    if (simTime >= nextLog) {
+      console.log(
+        `t=${simTime.toFixed(1)}s`,
+        `r=(${ball.r.x.toFixed(2)}, ${ball.r.y.toFixed(2)}, ${ball.r.z.toFixed(2)})`,
+        `|v|=${ball.v.length().toFixed(2)}`,
+        `|ω|=${ball.omega.length().toFixed(4)}`,
+        `|q|=${ball.q.length().toFixed(6)}`,
+      );
+      nextLog += 1;
     }
-    lastVy = ball.v.y;
     accumulator -= DT;
   }
 
   sync(ball, ballMesh);
+  controls.update();
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
+
+// Expose for live inspection in DevTools.
+window.sim = { ball, world };
 
 requestAnimationFrame(frame);

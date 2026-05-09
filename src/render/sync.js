@@ -1,4 +1,5 @@
-// Read-only: copy ball state to mesh transforms. Phase 1: position only.
+// Read-only: copy ball state to mesh transforms.
 export function sync(ball, mesh) {
   mesh.position.copy(ball.r);
+  mesh.quaternion.copy(ball.q);
 }
