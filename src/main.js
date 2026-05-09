@@ -5,10 +5,13 @@ import { step } from './physics/integrator.js';
 import { createScene } from './render/scene.js';
 import { createBallMesh, createGroundMesh } from './render/meshes.js';
 import { sync } from './render/sync.js';
+import { setupInput } from './input/shoot.js';
 
 const ball = initialBall();
 const world = initialWorld();
 const { scene, camera, renderer, controls } = createScene();
+
+setupInput(ball, camera, document.querySelector('#app'));
 
 const ballMesh = createBallMesh(ball);
 const groundMesh = createGroundMesh();
