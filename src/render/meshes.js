@@ -9,7 +9,7 @@ export function createBallMesh(ball) {
 }
 
 export function createGroundMesh() {
-  const geom = new PlaneGeometry(20, 20);
+  const geom = new PlaneGeometry(200, 200);
   geom.rotateX(-Math.PI / 2);
   const mat = new MeshStandardMaterial({ color: 0x2a6a2a, roughness: 1.0 });
   return new Mesh(geom, mat);

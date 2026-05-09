@@ -7,8 +7,8 @@ import {
 export function initialBall() {
   return {
     r: new Vector3(0, BALL_SPAWN_HEIGHT, 0),
-    v: new Vector3(0, 0, 0),
-    omega: new Vector3(0, 0, 0),
+    v: new Vector3(5, 5, 0),       // horizontal+upward shot — drag visibly shortens range
+    omega: new Vector3(0, 0, 8),   // backspin around Z — visible rotation; viscous decay is slow
     q: new Quaternion(),
     mode: 'flying',
     m: BALL_MASS,

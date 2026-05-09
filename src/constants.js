@@ -28,3 +28,8 @@ export const INERTIA_FACTOR = 2 / 5;
 // The 2/7 = 1/(1 + m·R²/I) coupling factor accounts for the linked
 // translation/rotation update of a uniform sphere at a contact point.
 export const TANGENTIAL_STICK_FACTOR = 2 / 7;
+
+// Sphere volume:  V = SPHERE_VOLUME_COEF · π · R³  (= (4/3) π R³)
+export const SPHERE_VOLUME_COEF = 4 / 3;
+// Viscous torque on a sphere in still air:  τ_visc = −VISCOUS_TORQUE_COEF · π · μ_air · R³ · ω
+export const VISCOUS_TORQUE_COEF = 8;
