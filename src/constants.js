@@ -14,6 +14,9 @@ export const MU_SLIDING = 0.4;      // Coulomb friction at contact
 export const MU_ROLLING = 0.05;
 
 export const DT = 1 / 60;           // s, fixed physics timestep
+export const MAX_FRAME_DT = 0.25;   // s, clamp on real-time elapsed to avoid spiral-of-death after a tab pause
+
+export const BALL_SPAWN_HEIGHT = 5; // m, default initial r.y
 
 // Rolling-mode trigger: |v·n| / |v_t| below this ⇒ ball is rolling.
 export const ROLLING_RATIO = 0.17;
