@@ -7,6 +7,7 @@ import {
   GOAL_AREA_DEPTH, GOAL_AREA_WIDTH,
   PENALTY_AREA_DEPTH, PENALTY_AREA_WIDTH,
   PENALTY_SPOT_DISTANCE, PENALTY_SPOT_RADIUS, PENALTY_ARC_RADIUS,
+  WALL_THICKNESS, STAND_TIER_COUNT, STAND_TIER_DEPTH, STAND_TIER_RISE,
 } from '../constants.js';
 
 // Lines/markings sit slightly above the pitch to avoid z-fighting.
@@ -127,6 +128,34 @@ export function createCenterCircleMesh() {
   const mesh = new Mesh(geom, mat);
   mesh.position.y = MARKING_Y;
   return mesh;
+}
+
+// Stepped stadium stands: a ring of N tiers behind the perimeter walls.
+// Each tier is taller than the one in front. Visual only — no collision.
+export function createStandsMesh() {
+  const group = new Group();
+  const mat = new MeshStandardMaterial({ color: 0xb8b8c2, roughness: 0.85 });
+  const outerX = PITCH_LENGTH * 0.5 + PITCH_PADDING + WALL_THICKNESS;
+  const outerZ = PITCH_WIDTH  * 0.5 + PITCH_PADDING + WALL_THICKNESS;
+
+  for (let i = 0; i < STAND_TIER_COUNT; i++) {
+    const tierH = (i + 1) * STAND_TIER_RISE;
+    const halfH = tierH * 0.5;
+    const inset = i * STAND_TIER_DEPTH;       // inner edge offset of this tier
+    const outset = (i + 1) * STAND_TIER_DEPTH; // outer edge offset
+    const midOff = inset + STAND_TIER_DEPTH * 0.5;
+    const nsLen = 2 * (outerX + outset);      // span the full outer x extent (corners filled)
+    const ewLen = 2 * (outerZ + outset);
+
+    const nsGeom = new BoxGeometry(nsLen, tierH, STAND_TIER_DEPTH);
+    const n = new Mesh(nsGeom, mat); n.position.set(0, halfH, +(outerZ + midOff)); group.add(n);
+    const s = new Mesh(nsGeom, mat); s.position.set(0, halfH, -(outerZ + midOff)); group.add(s);
+
+    const ewGeom = new BoxGeometry(STAND_TIER_DEPTH, tierH, ewLen);
+    const e = new Mesh(ewGeom, mat); e.position.set(+(outerX + midOff), halfH, 0); group.add(e);
+    const w = new Mesh(ewGeom, mat); w.position.set(-(outerX + midOff), halfH, 0); group.add(w);
+  }
+  return group;
 }
 
 // Mesh for a sphere or box obstacle. Returns null for unsupported types
