@@ -43,6 +43,7 @@ function frame(now) {
     if (simTime >= nextLog) {
       console.log(
         `t=${simTime.toFixed(1)}s`,
+        `mode=${ball.mode}`,
         `r=(${ball.r.x.toFixed(2)}, ${ball.r.y.toFixed(2)}, ${ball.r.z.toFixed(2)})`,
         `|v|=${ball.v.length().toFixed(2)}`,
         `|ω|=${ball.omega.length().toFixed(4)}`,
