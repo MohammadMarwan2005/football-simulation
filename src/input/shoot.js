@@ -18,16 +18,23 @@ function bind(id, readoutId) {
 // Click on the canvas to fire the ball:
 //   v₀ = power · (cos(elev) · forward_xz + sin(elev) · ŷ)   forward_xz = camera-forward, flattened
 //   ω  = (ωx, ωy, ωz) from the sliders
+// 'R' key resets the ball to initialBall() without firing.
 // Reset is via Object.assign so other modules keep the same ball reference.
-export function setupInput(ball, camera, canvas) {
+// onReset (optional) runs on every reset (shoot or R) — used to clear the trail.
+export function setupInput(ball, camera, canvas, onReset) {
   bind('ox',  'ox-val');
   bind('oy',  'oy-val');
   bind('oz',  'oz-val');
   bind('pow', 'pow-val');
   bind('el',  'el-val');
 
-  function shoot() {
+  function reset() {
     Object.assign(ball, initialBall());
+    if (onReset) onReset();
+  }
+
+  function shoot() {
+    reset();
 
     const forward = new Vector3();
     camera.getWorldDirection(forward);
@@ -44,4 +51,7 @@ export function setupInput(ball, camera, canvas) {
   }
 
   canvas.addEventListener('click', shoot);
+  window.addEventListener('keydown', (e) => {
+    if (e.key === 'r' || e.key === 'R') reset();
+  });
 }

@@ -45,4 +45,7 @@ export function respond(ball, contact) {
   ball.omega.addScaledVector(angImpulse, 1 / I);
 
   ball.r.addScaledVector(n, depth);
+
+  // Render-side hook: record the impulse-induced velocity change for squash on impact.
+  ball._lastImpact = { time: performance.now(), magnitude: Jn_mag / ball.m };
 }
