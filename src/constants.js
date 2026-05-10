@@ -64,3 +64,10 @@ export const PENALTY_ARC_RADIUS = 9.15;    // m, around the penalty spot (= "9.1
 export const INTRO_CAM_START = [-13.07, 64.88, 87.01];  // wide aerial
 export const INTRO_CAM_END   = [5.67,   5.50, 14.59];   // play view
 export const INTRO_DURATION_MS = 3000;
+
+// Phase 9 (stadium walls + stands)
+export const WALL_HEIGHT = 2;              // m
+export const WALL_THICKNESS = 0.2;         // m
+export const STAND_TIER_COUNT = 3;
+export const STAND_TIER_DEPTH = 5;         // m, depth of each tier
+export const STAND_TIER_RISE = 3;          // m, height step per tier

@@ -8,7 +8,7 @@ export function createScene() {
   const canvas = document.querySelector('#app');
 
   const scene = new Scene();
-  scene.background = new Color(0x0a0a0a);
+  scene.background = new Color(0x87ceeb);
 
   const camera = new PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 500);
   camera.position.set(8, 6, 14);

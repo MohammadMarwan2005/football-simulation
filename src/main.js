@@ -10,7 +10,7 @@ import { createScene } from './render/scene.js';
 import {
   createBallMesh, createGroundMesh, createObstacleMesh,
   createHalfwayLineMesh, createCenterCircleMesh, createBoundaryLinesMesh,
-  createPenaltyMarkingsMesh,
+  createPenaltyMarkingsMesh, createStandsMesh,
 } from './render/meshes.js';
 import { sync } from './render/sync.js';
 import { createTrail, pushTrailPoint, resetTrail } from './render/trail.js';
@@ -45,7 +45,8 @@ const halfwayLineMesh = createHalfwayLineMesh();
 const centerCircleMesh = createCenterCircleMesh();
 const boundaryLinesMesh = createBoundaryLinesMesh();
 const penaltyMarkingsMesh = createPenaltyMarkingsMesh();
-scene.add(ballMesh, groundMesh, halfwayLineMesh, centerCircleMesh, boundaryLinesMesh, penaltyMarkingsMesh);
+const standsMesh = createStandsMesh();
+scene.add(ballMesh, groundMesh, halfwayLineMesh, centerCircleMesh, boundaryLinesMesh, penaltyMarkingsMesh, standsMesh);
 
 for (const obs of world.obstacles) {
   const mesh = createObstacleMesh(obs);

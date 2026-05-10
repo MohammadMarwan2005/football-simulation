@@ -408,12 +408,12 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
-### Phase 9 — Stadium walls, stands, skybox `[ ]`
+### Phase 9 — Stadium walls, stands, skybox `[x]`
 
-- [ ] Add `WALL_HEIGHT = 2` and `WALL_THICKNESS = 0.2` to `constants.js`
-- [ ] In `state/world.js`, add 4 box obstacles forming a closed perimeter around the pitch (these are the collision walls)
-- [ ] Add simple stand meshes around the outside of the walls (visual only — a few stepped boxes will do; no collision)
-- [ ] Set a sky-blue scene background (or a basic Three.js sky) in `render/scene.js`
+- [x] Add `WALL_HEIGHT = 2` and `WALL_THICKNESS = 0.2` to `constants.js`
+- [x] In `state/world.js`, add 4 box obstacles forming a closed perimeter around the pitch (these are the collision walls)
+- [x] Add simple stand meshes around the outside of the walls (visual only — a few stepped boxes will do; no collision)
+- [x] Set a sky-blue scene background (or a basic Three.js sky) in `render/scene.js`
 
 **Acceptance:** the ball cannot leave the pitch and bounces cleanly off all four walls. Stands and sky are visible around/above the pitch.
 
