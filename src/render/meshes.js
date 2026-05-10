@@ -1,6 +1,16 @@
 import {
   Mesh, SphereGeometry, MeshStandardMaterial, PlaneGeometry, BoxGeometry,
+  RingGeometry, CircleGeometry, Group,
 } from 'three';
+import {
+  PITCH_LENGTH, PITCH_WIDTH, PITCH_PADDING, LINE_WIDTH, CENTER_CIRCLE_RADIUS,
+  GOAL_AREA_DEPTH, GOAL_AREA_WIDTH,
+  PENALTY_AREA_DEPTH, PENALTY_AREA_WIDTH,
+  PENALTY_SPOT_DISTANCE, PENALTY_SPOT_RADIUS, PENALTY_ARC_RADIUS,
+} from '../constants.js';
+
+// Lines/markings sit slightly above the pitch to avoid z-fighting.
+const MARKING_Y = 0.01;
 
 export function createBallMesh(ball) {
   const geom = new SphereGeometry(ball.R, 32, 16);
@@ -9,10 +19,114 @@ export function createBallMesh(ball) {
 }
 
 export function createGroundMesh() {
-  const geom = new PlaneGeometry(200, 200);
+  const geom = new PlaneGeometry(PITCH_LENGTH + 2 * PITCH_PADDING, PITCH_WIDTH + 2 * PITCH_PADDING);
   geom.rotateX(-Math.PI / 2);
   const mat = new MeshStandardMaterial({ color: 0x2a6a2a, roughness: 1.0 });
   return new Mesh(geom, mat);
+}
+
+// Open box outline (3 strips): both side lines + the far edge.
+// The near edge (goal line) is omitted because the boundary lines already cover it.
+function addBoxOutline(group, mat, goalX, depth, width) {
+  const sign = Math.sign(goalX);
+  const halfW = width * 0.5;
+  const innerX = goalX - sign * depth;
+  const midX = (goalX + innerX) * 0.5;
+
+  const sideGeom = new PlaneGeometry(depth, LINE_WIDTH);
+  sideGeom.rotateX(-Math.PI / 2);
+  for (const z of [halfW, -halfW]) {
+    const m = new Mesh(sideGeom, mat);
+    m.position.set(midX, MARKING_Y, z);
+    group.add(m);
+  }
+  const frontGeom = new PlaneGeometry(LINE_WIDTH, width);
+  frontGeom.rotateX(-Math.PI / 2);
+  const front = new Mesh(frontGeom, mat);
+  front.position.set(innerX, MARKING_Y, 0);
+  group.add(front);
+}
+
+export function createPenaltyMarkingsMesh() {
+  const group = new Group();
+  const mat = new MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
+  const halfL = PITCH_LENGTH * 0.5;
+  // Half-angle of the visible (outside-the-box) portion of the penalty arc.
+  const alpha = Math.acos((PENALTY_AREA_DEPTH - PENALTY_SPOT_DISTANCE) / PENALTY_ARC_RADIUS);
+
+  for (const goalX of [halfL, -halfL]) {
+    const sign = Math.sign(goalX);
+    addBoxOutline(group, mat, goalX, GOAL_AREA_DEPTH, GOAL_AREA_WIDTH);
+    addBoxOutline(group, mat, goalX, PENALTY_AREA_DEPTH, PENALTY_AREA_WIDTH);
+
+    const spotX = goalX - sign * PENALTY_SPOT_DISTANCE;
+
+    const spotGeom = new CircleGeometry(PENALTY_SPOT_RADIUS, 16);
+    spotGeom.rotateX(-Math.PI / 2);
+    const spot = new Mesh(spotGeom, mat);
+    spot.position.set(spotX, MARKING_Y, 0);
+    group.add(spot);
+
+    // Arc opens toward midfield (away from the goal line).
+    const thetaStart = sign > 0 ? Math.PI - alpha : -alpha;
+    const arcGeom = new RingGeometry(
+      PENALTY_ARC_RADIUS - LINE_WIDTH,
+      PENALTY_ARC_RADIUS,
+      48,
+      1,
+      thetaStart,
+      2 * alpha,
+    );
+    arcGeom.rotateX(-Math.PI / 2);
+    const arc = new Mesh(arcGeom, mat);
+    arc.position.set(spotX, MARKING_Y, 0);
+    group.add(arc);
+  }
+  return group;
+}
+
+export function createBoundaryLinesMesh() {
+  const group = new Group();
+  const mat = new MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
+  const halfL = PITCH_LENGTH * 0.5;
+  const halfW = PITCH_WIDTH * 0.5;
+
+  // Two touchlines (along x) at z = ±halfW
+  const touchGeom = new PlaneGeometry(PITCH_LENGTH, LINE_WIDTH);
+  touchGeom.rotateX(-Math.PI / 2);
+  for (const z of [halfW, -halfW]) {
+    const m = new Mesh(touchGeom, mat);
+    m.position.set(0, MARKING_Y, z);
+    group.add(m);
+  }
+
+  // Two goal lines (along z) at x = ±halfL
+  const goalGeom = new PlaneGeometry(LINE_WIDTH, PITCH_WIDTH);
+  goalGeom.rotateX(-Math.PI / 2);
+  for (const x of [halfL, -halfL]) {
+    const m = new Mesh(goalGeom, mat);
+    m.position.set(x, MARKING_Y, 0);
+    group.add(m);
+  }
+  return group;
+}
+
+export function createHalfwayLineMesh() {
+  const geom = new PlaneGeometry(LINE_WIDTH, PITCH_WIDTH);
+  geom.rotateX(-Math.PI / 2);
+  const mat = new MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
+  const mesh = new Mesh(geom, mat);
+  mesh.position.y = MARKING_Y;
+  return mesh;
+}
+
+export function createCenterCircleMesh() {
+  const geom = new RingGeometry(CENTER_CIRCLE_RADIUS - LINE_WIDTH, CENTER_CIRCLE_RADIUS, 64);
+  geom.rotateX(-Math.PI / 2);
+  const mat = new MeshStandardMaterial({ color: 0xffffff, roughness: 1.0 });
+  const mesh = new Mesh(geom, mat);
+  mesh.position.y = MARKING_Y;
+  return mesh;
 }
 
 // Mesh for a sphere or box obstacle. Returns null for unsupported types

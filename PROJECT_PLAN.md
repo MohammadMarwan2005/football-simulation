@@ -393,6 +393,61 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
+### Phase 8 — Pitch dimensions & markings `[x]`
+
+- [x] Add `PITCH_LENGTH = 105` and `PITCH_WIDTH = 68` (m, FIFA standard) to `constants.js`
+- [x] Resize the ground plane mesh in `render/meshes.js` to cover the pitch and tint it green
+- [x] Add a halfway line (single white line geometry across the midfield)
+- [x] Add a center circle (white ring geometry, radius `9.15` m — add `CENTER_CIRCLE_RADIUS` to `constants.js`)
+- [x] Add `PITCH_PADDING` grass margin around the playing area
+- [x] Add boundary lines (touchlines + goal lines) at the pitch edges
+- [x] Add goal-area + penalty-area outlines, penalty spot, and penalty arc at each end
+- [x] Intro camera animation easing from a wide aerial down to the play view
+
+**Acceptance:** the ball falls onto a green 105×68 m pitch with halfway line, center circle, boundary lines, and goal/penalty markings. Lines are purely visual (no collision). On load, the camera eases from a wide aerial into the play view.
+
+---
+
+### Phase 9 — Stadium walls, stands, skybox `[ ]`
+
+- [ ] Add `WALL_HEIGHT = 2` and `WALL_THICKNESS = 0.2` to `constants.js`
+- [ ] In `state/world.js`, add 4 box obstacles forming a closed perimeter around the pitch (these are the collision walls)
+- [ ] Add simple stand meshes around the outside of the walls (visual only — a few stepped boxes will do; no collision)
+- [ ] Set a sky-blue scene background (or a basic Three.js sky) in `render/scene.js`
+
+**Acceptance:** the ball cannot leave the pitch and bounces cleanly off all four walls. Stands and sky are visible around/above the pitch.
+
+---
+
+### Phase 10 — Goals (posts + crossbar) `[ ]`
+
+- [ ] Add `GOAL_WIDTH = 7.32`, `GOAL_HEIGHT = 2.44`, `POST_THICKNESS = 0.12` to `constants.js`
+- [ ] For each end of the pitch, add 2 posts + 1 crossbar as thin box obstacles in `state/world.js` (6 boxes total)
+
+**Acceptance:** the ball bounces off posts and crossbar and passes through the goal opening unobstructed. No back wall, no net.
+
+---
+
+### Phase 11 — Static players `[ ]`
+
+- [ ] Add `PLAYER_HEIGHT = 1.8` and `PLAYER_WIDTH = 0.5` to `constants.js`
+- [ ] Add a fixed set of player box obstacles at chosen positions in `state/world.js`
+- [ ] Existing box rendering handles them — no new render code
+
+**Acceptance:** players are visible on the pitch and the ball bounces off them. Static, no motion.
+
+---
+
+### Phase 12 — Shooter spawn `[ ]`
+
+- [ ] Designate one player as the "shooter" (a distinct color is enough)
+- [ ] Update `initialBall()` so the ball spawns on the ground next to the shooter, not high above the center
+- [ ] The existing `R` reset key returns the ball to that spawn point
+
+**Acceptance:** on load and after pressing `R`, the ball sits at the shooter's feet; click-and-drag aim + shoot still works.
+
+---
+
 ## Working Style for Claude Code
 
 - Implement one phase at a time. Do not touch files outside the phase's checklist.

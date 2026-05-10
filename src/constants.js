@@ -43,3 +43,24 @@ export const CAMERA_FOLLOW_LERP = 0.08;    // per-frame interp factor toward bal
 export const SQUASH_DURATION_MS = 120;     // ms, full squash envelope
 export const SQUASH_AMOUNT = 0.2;          // max uniform scale reduction at envelope peak
 export const SQUASH_SAT_VELOCITY = 5;      // m/s of impulse Δv at which the squash saturates
+
+// Phase 8 (pitch geometry)
+export const PITCH_LENGTH = 105;           // m, FIFA standard (along x)
+export const PITCH_WIDTH = 68;             // m, FIFA standard (along z)
+export const PITCH_PADDING = 5;            // m, run-off grass margin outside the playing area
+export const LINE_WIDTH = 0.12;            // m, painted line width
+export const CENTER_CIRCLE_RADIUS = 9.15;  // m, FIFA standard
+
+// Phase 8 (pitch markings — goal / penalty areas)
+export const GOAL_AREA_DEPTH = 5.5;        // m, perpendicular to goal line
+export const GOAL_AREA_WIDTH = 18.32;      // m, parallel to goal line
+export const PENALTY_AREA_DEPTH = 16.5;
+export const PENALTY_AREA_WIDTH = 40.32;
+export const PENALTY_SPOT_DISTANCE = 11;   // m, from goal line
+export const PENALTY_SPOT_RADIUS = 0.11;   // m, painted spot radius
+export const PENALTY_ARC_RADIUS = 9.15;    // m, around the penalty spot (= "9.15 m" rule)
+
+// Phase 8 (intro camera animation)
+export const INTRO_CAM_START = [-13.07, 64.88, 87.01];  // wide aerial
+export const INTRO_CAM_END   = [5.67,   5.50, 14.59];   // play view
+export const INTRO_DURATION_MS = 3000;
