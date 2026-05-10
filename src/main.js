@@ -3,7 +3,7 @@ import { initialBall } from './state/ball.js';
 import { initialWorld } from './state/world.js';
 import { step } from './physics/integrator.js';
 import { createScene } from './render/scene.js';
-import { createBallMesh, createGroundMesh } from './render/meshes.js';
+import { createBallMesh, createGroundMesh, createObstacleMesh } from './render/meshes.js';
 import { sync } from './render/sync.js';
 import { setupInput } from './input/shoot.js';
 
@@ -17,6 +17,11 @@ const ballMesh = createBallMesh(ball);
 const groundMesh = createGroundMesh();
 scene.add(ballMesh);
 scene.add(groundMesh);
+
+for (const obs of world.obstacles) {
+  const mesh = createObstacleMesh(obs);
+  if (mesh) scene.add(mesh);
+}
 
 // Fixed-timestep accumulator: physics runs at exactly DT regardless of frame rate.
 let lastTime = performance.now();
