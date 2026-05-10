@@ -35,3 +35,11 @@ export const SPHERE_VOLUME_COEF = 4 / 3;
 export const VISCOUS_TORQUE_COEF = 8;
 
 export const DEG_TO_RAD = Math.PI / 180;
+
+// Phase 7 (polish)
+export const TRAIL_MAX_POINTS = 240;       // ~4 s of trail at 60 fps
+export const AIM_LENGTH = 3;               // m, aim indicator length from ball
+export const CAMERA_FOLLOW_LERP = 0.08;    // per-frame interp factor toward ball
+export const SQUASH_DURATION_MS = 120;     // ms, full squash envelope
+export const SQUASH_AMOUNT = 0.2;          // max uniform scale reduction at envelope peak
+export const SQUASH_SAT_VELOCITY = 5;      // m/s of impulse Δv at which the squash saturates
