@@ -419,10 +419,11 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
-### Phase 10 — Goals (posts + crossbar) `[ ]`
+### Phase 10 — Goals (posts + crossbar) `[x]`
 
-- [ ] Add `GOAL_WIDTH = 7.32`, `GOAL_HEIGHT = 2.44`, `POST_THICKNESS = 0.12` to `constants.js`
-- [ ] For each end of the pitch, add 2 posts + 1 crossbar as thin box obstacles in `state/world.js` (6 boxes total)
+- [x] Add `GOAL_WIDTH = 7.32`, `GOAL_HEIGHT = 2.44`, `POST_THICKNESS = 0.12` to `constants.js`
+- [x] For each end of the pitch, add 2 posts + 1 crossbar as thin box obstacles in `state/world.js` (6 boxes total)
+- [x] `createObstacleMesh` honors an optional `color` field so goal frames render white
 
 **Acceptance:** the ball bounces off posts and crossbar and passes through the goal opening unobstructed. No back wall, no net.
 

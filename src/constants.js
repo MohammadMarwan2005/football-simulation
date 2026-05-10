@@ -71,3 +71,8 @@ export const WALL_THICKNESS = 0.2;         // m
 export const STAND_TIER_COUNT = 3;
 export const STAND_TIER_DEPTH = 5;         // m, depth of each tier
 export const STAND_TIER_RISE = 3;          // m, height step per tier
+
+// Phase 10 (goal frame)
+export const GOAL_WIDTH = 7.32;            // m, FIFA standard (along z)
+export const GOAL_HEIGHT = 2.44;           // m, FIFA standard (crossbar bottom)
+export const POST_THICKNESS = 0.12;        // m, FIFA limit (square cross-section)

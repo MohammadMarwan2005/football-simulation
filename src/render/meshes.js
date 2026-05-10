@@ -173,7 +173,7 @@ export function createObstacleMesh(obs) {
     const sy = obs.max.y - obs.min.y;
     const sz = obs.max.z - obs.min.z;
     const geom = new BoxGeometry(sx, sy, sz);
-    const mat = new MeshStandardMaterial({ color: 0x6a6a8a, roughness: 0.7 });
+    const mat = new MeshStandardMaterial({ color: obs.color ?? 0x6a6a8a, roughness: 0.7 });
     const mesh = new Mesh(geom, mat);
     mesh.position.set(
       (obs.min.x + obs.max.x) * 0.5,
