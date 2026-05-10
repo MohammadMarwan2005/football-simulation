@@ -7,6 +7,8 @@ import { buoyancy } from '../forces/buoyancy.js';
 import { viscousTorque } from '../forces/viscousTorque.js';
 import { updateOrientation } from './orientation.js';
 import { detectPlane } from '../collisions/detect/plane.js';
+import { detectSphere } from '../collisions/detect/sphere.js';
+import { detectBox } from '../collisions/detect/box.js';
 import { respond } from '../collisions/respond.js';
 
 // Semi-implicit Euler.
@@ -32,7 +34,9 @@ export function step(ball, world, dt) {
 
   for (const obs of world.obstacles) {
     let contact = null;
-    if (obs.type === 'plane') contact = detectPlane(ball, obs);
+    if      (obs.type === 'plane')  contact = detectPlane(ball, obs);
+    else if (obs.type === 'sphere') contact = detectSphere(ball, obs);
+    else if (obs.type === 'box')    contact = detectBox(ball, obs);
     if (contact) respond(ball, contact);
   }
 }
