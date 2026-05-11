@@ -17,6 +17,9 @@ import { createTrail, pushTrailPoint, resetTrail } from './render/trail.js';
 import { createAim, updateAim } from './render/aim.js';
 import { setupInput } from './input/shoot.js';
 import { setupCameraControls, updateCameraControls } from './input/cameraControls.js';
+import { trackSession } from './sessionTracker.js';
+
+trackSession();
 
 const ball = initialBall();
 const world = initialWorld();
