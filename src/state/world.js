@@ -37,10 +37,10 @@ export function initialWorld() {
     players.push(makePlayer(px, pz, 'home'));
     players.push(makePlayer(-px, pz, 'away'));
   }
-  // Asymmetric pair: home forward stands near the ball (centered at origin);
+  // Asymmetric pair: home forward stands near the ball spawn (designated shooter);
   // the away counterpart keeps its mirrored spot.
-  players.push(makePlayer(-0.6, 0, 'home'));
-  players.push(makePlayer(5,    5, 'away'));
+  players.push({ ...makePlayer(-0.6, 0, 'home'), shooter: true });
+  players.push(makePlayer(5, 5, 'away'));
 
   const goalFrames = [];
   for (const sign of [1, -1]) {
