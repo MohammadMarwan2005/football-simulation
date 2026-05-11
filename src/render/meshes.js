@@ -162,12 +162,14 @@ export function createStandsMesh() {
 // Mesh's local origin sits at the feet (y = 0), centered in x and z.
 // Collision is still the surrounding box obstacle — this is visual only.
 const TEAM_COLOR = { home: 0xc0392b, away: 0x2980b9 };
+const SHOOTER_COLOR = 0xf1c40f;
 const SKIN_COLOR = 0xf2c597;
 const SHORTS_COLOR = 0x1a1a1f;
 
-export function createPlayerMesh(team) {
+export function createPlayerMesh(team, isShooter = false) {
   const group = new Group();
-  const jersey = new MeshStandardMaterial({ color: TEAM_COLOR[team] ?? TEAM_COLOR.home, roughness: 0.7 });
+  const jerseyColor = isShooter ? SHOOTER_COLOR : (TEAM_COLOR[team] ?? TEAM_COLOR.home);
+  const jersey = new MeshStandardMaterial({ color: jerseyColor, roughness: 0.7 });
   const skin   = new MeshStandardMaterial({ color: SKIN_COLOR,   roughness: 0.6 });
   const shorts = new MeshStandardMaterial({ color: SHORTS_COLOR, roughness: 0.7 });
 
@@ -204,7 +206,7 @@ export function createPlayerMesh(team) {
 // (e.g. planes — the ground has its own dedicated mesh).
 export function createObstacleMesh(obs) {
   if (obs.kind === 'player') {
-    const mesh = createPlayerMesh(obs.team);
+    const mesh = createPlayerMesh(obs.team, obs.shooter);
     mesh.position.set(
       (obs.min.x + obs.max.x) * 0.5,
       obs.min.y,

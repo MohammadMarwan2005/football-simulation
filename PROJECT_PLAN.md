@@ -442,11 +442,11 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
-### Phase 12 — Shooter spawn `[ ]`
+### Phase 12 — Shooter spawn `[x]`
 
-- [ ] Designate one player as the "shooter" (a distinct color is enough)
-- [ ] Update `initialBall()` so the ball spawns on the ground next to the shooter, not high above the center
-- [ ] The existing `R` reset key returns the ball to that spawn point
+- [x] Designate one player as the "shooter" (gold kit color via `shooter: true` tag + `createPlayerMesh` override)
+- [x] Update `initialBall()` so the ball spawns on the ground next to the shooter, not high above the center (already done in Phase 7 — ball spawns at `(0, R, 0)`)
+- [x] The existing `R` reset key returns the ball to that spawn point (already wired)
 
 **Acceptance:** on load and after pressing `R`, the ball sits at the shooter's feet; click-and-drag aim + shoot still works.
 
