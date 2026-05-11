@@ -80,3 +80,10 @@ export const POST_THICKNESS = 0.12;        // m, FIFA limit (square cross-sectio
 // Phase 11 (static players)
 export const PLAYER_HEIGHT = 1.8;          // m
 export const PLAYER_WIDTH = 0.5;           // m, square footprint
+
+// Phase 13 (keyboard camera controls)
+export const CAM_ORBIT_SPEED = 1.5;        // rad/s — keyboard orbit rate
+export const CAM_PAN_SPEED = 15;           // m/s   — keyboard pan rate (target translation)
+export const CAM_ZOOM_SPEED = 25;          // m/s   — keyboard zoom rate (distance to target)
+export const CAM_MIN_DISTANCE = 3;         // m
+export const CAM_MAX_DISTANCE = 150;       // m

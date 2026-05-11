@@ -53,5 +53,6 @@ export function setupInput(ball, camera, canvas, onReset) {
   canvas.addEventListener('click', shoot);
   window.addEventListener('keydown', (e) => {
     if (e.key === 'r' || e.key === 'R') reset();
+    if (e.key === ' ') { e.preventDefault(); shoot(); }
   });
 }

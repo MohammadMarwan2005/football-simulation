@@ -452,6 +452,19 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
+### Phase 13 — Keyboard camera controls + HUD `[x]`
+
+- [x] Add camera speed/limit constants to `constants.js` (orbit, pan, zoom rates; min/max distance)
+- [x] Configure `controls.minDistance` / `controls.maxDistance` on the existing OrbitControls in `render/scene.js`
+- [x] New module `src/input/cameraControls.js`: tracks pressed keys, exposes `setupCameraControls()` and `updateCameraControls(camera, controls, dt)`
+- [x] Wire into `main.js` frame loop (skipped while the intro animation is active)
+- [x] HUD panel in `index.html` showing the keybind cheatsheet (arrows orbit, WASD pan, Q/E zoom, R reset)
+- [x] `Space` triggers shoot (same as click); HUD updated
+
+**Acceptance:** holding arrows orbits the camera, holding WASD pans the target across the pitch, Q/E zoom in/out, all smoothly time-stepped; HUD shows the bindings at the bottom-left; Space fires the ball.
+
+---
+
 ## Working Style for Claude Code
 
 - Implement one phase at a time. Do not touch files outside the phase's checklist.

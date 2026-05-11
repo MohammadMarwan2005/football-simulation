@@ -18,6 +18,21 @@
       #ui input[type="range"] { width: 200px; vertical-align: middle; margin: 0 6px; }
       #ui .val { display: inline-block; min-width: 32px; text-align: right; color: #eee; }
       #ui .hint { margin-top: 8px; font-size: 11px; color: #999; }
+      #cam-help {
+        position: fixed; bottom: 12px; left: 12px;
+        background: rgba(0, 0, 0, 0.6); color: #ccc;
+        font-family: system-ui, sans-serif; font-size: 12px;
+        padding: 10px 12px; border-radius: 6px;
+        user-select: none; pointer-events: none;
+        line-height: 1.8;
+      }
+      #cam-help kbd {
+        display: inline-block;
+        background: #2a2a30; color: #fff;
+        padding: 1px 6px; border-radius: 3px;
+        font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
+        margin: 0 2px;
+      }
     </style>
   </head>
   <body>
@@ -29,7 +44,11 @@
       <label>power<input type="range" id="pow" min="1" max="40" step="1" value="18"><span class="val" id="pow-val">18</span></label>
       <label>elevation°<input type="range" id="el" min="0" max="80" step="1" value="20"><span class="val" id="el-val">20</span></label>
       <label><input type="checkbox" id="follow"> Follow ball</label>
-      <div class="hint">Click to shoot · R to reset · drag/scroll to orbit</div>
+      <div class="hint">Click to shoot</div>
+    </div>
+    <div id="cam-help">
+      <div><kbd>↑↓←→</kbd> orbit · <kbd>W A S D</kbd> pan · <kbd>Q / E</kbd> zoom</div>
+      <div><kbd>click</kbd> or <kbd>Space</kbd> shoot · <kbd>R</kbd> reset · <kbd>drag</kbd>/<kbd>scroll</kbd> mouse</div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

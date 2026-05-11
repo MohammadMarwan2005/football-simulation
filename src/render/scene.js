@@ -3,6 +3,7 @@ import {
   AmbientLight, DirectionalLight, Color, GridHelper,
 } from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { CAM_MIN_DISTANCE, CAM_MAX_DISTANCE } from '../constants.js';
 
 export function createScene() {
   const canvas = document.querySelector('#app');
@@ -21,6 +22,8 @@ export function createScene() {
   const controls = new OrbitControls(camera, canvas);
   controls.target.set(4, 2, 0);
   controls.enableDamping = true;
+  controls.minDistance = CAM_MIN_DISTANCE;
+  controls.maxDistance = CAM_MAX_DISTANCE;
   controls.update();
 
   scene.add(new AmbientLight(0xffffff, 0.4));

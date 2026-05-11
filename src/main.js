@@ -16,6 +16,7 @@ import { sync } from './render/sync.js';
 import { createTrail, pushTrailPoint, resetTrail } from './render/trail.js';
 import { createAim, updateAim } from './render/aim.js';
 import { setupInput } from './input/shoot.js';
+import { setupCameraControls, updateCameraControls } from './input/cameraControls.js';
 
 const ball = initialBall();
 const world = initialWorld();
@@ -58,6 +59,7 @@ const aim = createAim();
 scene.add(trail.line, aim.line);
 
 setupInput(ball, camera, document.querySelector('#app'), () => resetTrail(trail));
+setupCameraControls();
 
 const followCheck = document.getElementById('follow');
 const _shift = new Vector3();
@@ -107,11 +109,14 @@ function frame(now) {
       introActive = false;
       controls.enabled = true;
     }
-  } else if (followCheck.checked) {
-    _oldTarget.copy(controls.target);
-    controls.target.lerp(ball.r, CAMERA_FOLLOW_LERP);
-    _shift.subVectors(controls.target, _oldTarget);
-    camera.position.add(_shift);
+  } else {
+    if (followCheck.checked) {
+      _oldTarget.copy(controls.target);
+      controls.target.lerp(ball.r, CAMERA_FOLLOW_LERP);
+      _shift.subVectors(controls.target, _oldTarget);
+      camera.position.add(_shift);
+    }
+    updateCameraControls(camera, controls, elapsed);
   }
   controls.update();
   renderer.render(scene, camera);
