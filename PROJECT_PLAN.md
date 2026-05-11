@@ -429,13 +429,16 @@ Each phase ends with a runnable, visually-verifiable result. Do **not** advance 
 
 ---
 
-### Phase 11 — Static players `[ ]`
+### Phase 11 — Static players (11 v 11, humanoid) `[x]`
 
-- [ ] Add `PLAYER_HEIGHT = 1.8` and `PLAYER_WIDTH = 0.5` to `constants.js`
-- [ ] Add a fixed set of player box obstacles at chosen positions in `state/world.js`
-- [ ] Existing box rendering handles them — no new render code
+- [x] Add `PLAYER_HEIGHT = 1.8` and `PLAYER_WIDTH = 0.5` to `constants.js`
+- [x] Add 22 player obstacles in `state/world.js` in a 4-4-2 formation per side, tagged with `kind: 'player'` and `team: 'home' | 'away'` (collision stays a single box per player)
+- [x] Add `createPlayerMesh(team)` factory in `render/meshes.js` — humanoid from primitives (head sphere + torso + arms + legs boxes), team-colored
+- [x] `createObstacleMesh` dispatches to the humanoid factory when `obs.kind === 'player'`
+- [x] Remove leftover Phase-5 test sphere and gray box from `state/world.js`
+- [x] Home forward placed asymmetrically next to the ball spawn (Phase 12 will formalize the shooter)
 
-**Acceptance:** players are visible on the pitch and the ball bounces off them. Static, no motion.
+**Acceptance:** 22 humanoid figures visible on the pitch in a 4-4-2 formation (11 red, 11 blue). The ball bounces off them (collision is box-shaped, no per-limb collision).
 
 ---
 

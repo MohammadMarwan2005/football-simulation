@@ -158,9 +158,60 @@ export function createStandsMesh() {
   return group;
 }
 
+// Humanoid built from primitives: head sphere + torso, two arms, two legs (boxes).
+// Mesh's local origin sits at the feet (y = 0), centered in x and z.
+// Collision is still the surrounding box obstacle — this is visual only.
+const TEAM_COLOR = { home: 0xc0392b, away: 0x2980b9 };
+const SKIN_COLOR = 0xf2c597;
+const SHORTS_COLOR = 0x1a1a1f;
+
+export function createPlayerMesh(team) {
+  const group = new Group();
+  const jersey = new MeshStandardMaterial({ color: TEAM_COLOR[team] ?? TEAM_COLOR.home, roughness: 0.7 });
+  const skin   = new MeshStandardMaterial({ color: SKIN_COLOR,   roughness: 0.6 });
+  const shorts = new MeshStandardMaterial({ color: SHORTS_COLOR, roughness: 0.7 });
+
+  // Head
+  const head = new Mesh(new SphereGeometry(0.12, 16, 12), skin);
+  head.position.y = 1.65;
+  group.add(head);
+
+  // Torso
+  const torso = new Mesh(new BoxGeometry(0.36, 0.55, 0.22), jersey);
+  torso.position.y = 1.25;
+  group.add(torso);
+
+  // Arms (left/right of torso)
+  const armGeom = new BoxGeometry(0.12, 0.55, 0.12);
+  for (const x of [-0.23, 0.23]) {
+    const arm = new Mesh(armGeom, jersey);
+    arm.position.set(x, 1.25, 0);
+    group.add(arm);
+  }
+
+  // Legs (slightly apart left/right)
+  const legGeom = new BoxGeometry(0.16, 0.9, 0.16);
+  for (const x of [-0.1, 0.1]) {
+    const leg = new Mesh(legGeom, shorts);
+    leg.position.set(x, 0.45, 0);
+    group.add(leg);
+  }
+
+  return group;
+}
+
 // Mesh for a sphere or box obstacle. Returns null for unsupported types
 // (e.g. planes — the ground has its own dedicated mesh).
 export function createObstacleMesh(obs) {
+  if (obs.kind === 'player') {
+    const mesh = createPlayerMesh(obs.team);
+    mesh.position.set(
+      (obs.min.x + obs.max.x) * 0.5,
+      obs.min.y,
+      (obs.min.z + obs.max.z) * 0.5,
+    );
+    return mesh;
+  }
   if (obs.type === 'sphere') {
     const geom = new SphereGeometry(obs.radius, 24, 16);
     const mat = new MeshStandardMaterial({ color: 0xc25e2a, roughness: 0.7 });
