@@ -76,3 +76,7 @@ export const STAND_TIER_RISE = 3;          // m, height step per tier
 export const GOAL_WIDTH = 7.32;            // m, FIFA standard (along z)
 export const GOAL_HEIGHT = 2.44;           // m, FIFA standard (crossbar bottom)
 export const POST_THICKNESS = 0.12;        // m, FIFA limit (square cross-section)
+
+// Phase 11 (static players)
+export const PLAYER_HEIGHT = 1.8;          // m
+export const PLAYER_WIDTH = 0.5;           // m, square footprint
