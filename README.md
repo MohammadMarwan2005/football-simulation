@@ -42,6 +42,18 @@ npm install
 npm run dev
 ```
 
+## Validation scenarios
+
+The panel on the right runs the 9 validation scenarios from the reference study (free-fall bounce decay, 45° launch, top/side-spin Magnus, sphere/box hits, top-spin wall bounce, rolling transition, restitution sweep). Each run is recorded per physics step and exportable as CSV.
+
+The same scenarios run headlessly for the report pipeline:
+
+```bash
+node report/run_scenarios.mjs        # CSVs → report/data/
+python3 report/generate_charts.py   # PNGs → report/figures/, summary.json
+python3 report/build_report.py      # → report/final_report.docx (Arabic)
+```
+
 ## Physics notes
 
 Uses a semi-implicit Euler integrator at a fixed 1/60 s timestep with a real-time accumulator, so behavior is frame-rate independent. The collision response is a single shape-agnostic impulse function — the same code handles the ground, goal posts, and players.

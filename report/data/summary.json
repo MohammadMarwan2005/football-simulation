@@ -1,0 +1,68 @@
+{
+  "s1": {
+    "first_peak_ideal": 2.456225,
+    "first_peak_theory": 2.4499999999999997,
+    "peak_ratios_ideal": [
+      0.5080804893688485,
+      0.5038943555883201,
+      0.5684736976019338
+    ],
+    "e_squared": 0.48999999999999994,
+    "peaks_with_air": [
+      2.232318,
+      1.068213,
+      0.54744,
+      0.314335
+    ]
+  },
+  "s9": {
+    "s9a": {
+      "e": 0.4,
+      "first_peak": 0.804283,
+      "first_peak_theory_no_air": 0.8000000000000002,
+      "n_bounces_recorded": 2
+    },
+    "s9b": {
+      "e": 0.7,
+      "first_peak": 2.232318,
+      "first_peak_theory_no_air": 2.4499999999999997,
+      "n_bounces_recorded": 6
+    },
+    "s9c": {
+      "e": 0.9,
+      "first_peak": 3.571117,
+      "first_peak_theory_no_air": 4.050000000000001,
+      "n_bounces_recorded": 14
+    }
+  },
+  "s2": {
+    "range_with_drag": 18.673228,
+    "range_no_air_sim": 22.8115,
+    "range_analytic": 22.93577981651376
+  },
+  "s4": {
+    "lateral_deflection_at_landing": 0.219712,
+    "z_landing": 18.67149
+  },
+  "s3": {
+    "apex_spin": 5.132149,
+    "apex_nospin": 5.189693,
+    "range_spin": 18.608018,
+    "range_nospin": 18.673228
+  },
+  "viscous_tau_seconds": 3362.9791414995098,
+  "s7": {
+    "vy_before_spin": -2.733275,
+    "vy_after_spin": -1.436747,
+    "dvy_spin": 1.296528,
+    "vy_before_nospin": -2.535547,
+    "vy_after_nospin": -1.92086,
+    "dvy_nospin": 0.6146870000000002
+  },
+  "s8": {
+    "t_rolling_start": 0.583333,
+    "measured_decel": 0.4905000000000001,
+    "theory_decel": 0.49050000000000005,
+    "stop_position_x": 25.262846
+  }
+}

@@ -33,6 +33,26 @@
         font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 11px;
         margin: 0 2px;
       }
+      #scenarios {
+        position: fixed; top: 12px; right: 12px;
+        width: 210px; max-height: calc(100vh - 24px); overflow-y: auto;
+        background: rgba(0, 0, 0, 0.6); color: #ccc;
+        direction: rtl; text-align: right;
+        font-family: system-ui, sans-serif; font-size: 13px;
+        padding: 12px 14px; border-radius: 6px;
+        user-select: none;
+      }
+      #scenarios h3 { margin: 0 0 8px; font-size: 13px; color: #eee; }
+      #scenarios button {
+        display: block; width: 100%; margin: 4px 0;
+        background: #1e1e26; color: #ddd;
+        border: 1px solid #3a3a44; border-radius: 4px;
+        padding: 6px 8px; font-size: 12px; text-align: right;
+        cursor: pointer;
+      }
+      #scenarios button:hover { background: #2a2a34; }
+      #scenarios button.active { background: #2e4a2e; border-color: #4a8a4a; color: #fff; }
+      #scenarios #rec-status { margin-top: 8px; font-size: 11px; color: #9c9; min-height: 14px; }
     </style>
   </head>
   <body>
@@ -45,6 +65,13 @@
       <label>elevation°<input type="range" id="el" min="0" max="80" step="1" value="20"><span class="val" id="el-val">20</span></label>
       <label><input type="checkbox" id="follow"> Follow ball</label>
       <div class="hint">Click to shoot</div>
+    </div>
+    <div id="scenarios">
+      <h3>سيناريوهات التحقق</h3>
+      <div id="scenario-list"></div>
+      <button id="free-mode">وضع حر (إيقاف السيناريو)</button>
+      <button id="export-csv">تصدير بيانات التشغيل CSV</button>
+      <div id="rec-status">اختر سيناريو للتشغيل والتسجيل</div>
     </div>
     <div id="cam-help">
       <div><kbd>↑↓←→</kbd> orbit · <kbd>W A S D</kbd> pan · <kbd>Q / E</kbd> zoom</div>

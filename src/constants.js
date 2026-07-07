@@ -11,7 +11,7 @@ export const CD = 0.25;             // drag coefficient
 export const CL = 0.20;             // Magnus / lift coefficient
 export const RESTITUTION = 0.7;
 export const MU_SLIDING = 0.4;      // Coulomb friction at contact
-export const MU_ROLLING = 0.4;      // rolling resistance (linear decel = μ_r · g)
+export const MU_ROLLING = 0.05;     // rolling resistance (linear decel = μ_r · g)
 
 export const DT = 1 / 60;           // s, fixed physics timestep
 export const MAX_FRAME_DT = 0.25;   // s, clamp on real-time elapsed to avoid spiral-of-death after a tab pause

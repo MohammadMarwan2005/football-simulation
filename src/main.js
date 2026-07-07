@@ -17,6 +17,8 @@ import { createTrail, pushTrailPoint, resetTrail } from './render/trail.js';
 import { createAim, updateAim } from './render/aim.js';
 import { setupInput } from './input/shoot.js';
 import { setupCameraControls, updateCameraControls } from './input/cameraControls.js';
+import { setupScenarioPanel } from './input/scenarioPanel.js';
+import { createRecorder, recordStep } from './recorder.js';
 import { trackSession } from './sessionTracker.js';
 
 trackSession();
@@ -32,6 +34,12 @@ const introStartTime = performance.now();
 let introActive = true;
 camera.position.copy(introFrom);
 controls.enabled = false;
+
+// Scenario buttons skip straight to their own camera view.
+function cancelIntro() {
+  introActive = false;
+  controls.enabled = true;
+}
 
 // Log the camera config whenever the user finishes dragging — handy for picking new defaults.
 controls.addEventListener('end', () => {
@@ -64,6 +72,13 @@ scene.add(trail.line, aim.line);
 setupInput(ball, camera, document.querySelector('#app'), () => resetTrail(trail));
 setupCameraControls();
 
+const recorder = createRecorder();
+setupScenarioPanel({
+  ball, world, scene, camera, controls, recorder,
+  onReset: () => resetTrail(trail),
+  cancelIntro,
+});
+
 const followCheck = document.getElementById('follow');
 const _shift = new Vector3();
 const _oldTarget = new Vector3();
@@ -84,6 +99,7 @@ function frame(now) {
 
   while (accumulator >= DT) {
     step(ball, world, DT);
+    recordStep(recorder, ball, DT);
     simTime += DT;
     if (simTime >= nextLog) {
       console.log(
@@ -127,6 +143,6 @@ function frame(now) {
 }
 
 // Expose for live inspection in DevTools.
-window.sim = { ball, world };
+window.sim = { ball, world, recorder, scene, camera, renderer };
 
 requestAnimationFrame(frame);
