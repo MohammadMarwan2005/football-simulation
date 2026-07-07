@@ -37,7 +37,6 @@
         position: fixed; top: 12px; right: 12px;
         width: 210px; max-height: calc(100vh - 24px); overflow-y: auto;
         background: rgba(0, 0, 0, 0.6); color: #ccc;
-        direction: rtl; text-align: right;
         font-family: system-ui, sans-serif; font-size: 13px;
         padding: 12px 14px; border-radius: 6px;
         user-select: none;
@@ -47,12 +46,13 @@
         display: block; width: 100%; margin: 4px 0;
         background: #1e1e26; color: #ddd;
         border: 1px solid #3a3a44; border-radius: 4px;
-        padding: 6px 8px; font-size: 12px; text-align: right;
+        padding: 6px 8px; font-size: 12px; text-align: start;
         cursor: pointer;
       }
       #scenarios button:hover { background: #2a2a34; }
       #scenarios button.active { background: #2e4a2e; border-color: #4a8a4a; color: #fff; }
       #scenarios #rec-status { margin-top: 8px; font-size: 11px; color: #9c9; min-height: 14px; }
+      #lang-toggle { margin-top: 8px; text-align: center !important; }
     </style>
   </head>
   <body>
@@ -61,21 +61,22 @@
       <label>ω.x<input type="range" id="ox" min="-50" max="50" step="1" value="0"><span class="val" id="ox-val">0</span></label>
       <label>ω.y<input type="range" id="oy" min="-50" max="50" step="1" value="0"><span class="val" id="oy-val">0</span></label>
       <label>ω.z<input type="range" id="oz" min="-50" max="50" step="1" value="0"><span class="val" id="oz-val">0</span></label>
-      <label>power<input type="range" id="pow" min="1" max="40" step="1" value="18"><span class="val" id="pow-val">18</span></label>
-      <label>elevation°<input type="range" id="el" min="0" max="80" step="1" value="20"><span class="val" id="el-val">20</span></label>
-      <label><input type="checkbox" id="follow"> Follow ball</label>
-      <div class="hint">Click to shoot</div>
+      <label><span data-i18n="ui.power">power</span><input type="range" id="pow" min="1" max="40" step="1" value="18"><span class="val" id="pow-val">18</span></label>
+      <label><span data-i18n="ui.elevation">elevation°</span><input type="range" id="el" min="0" max="80" step="1" value="20"><span class="val" id="el-val">20</span></label>
+      <label><input type="checkbox" id="follow"> <span data-i18n="ui.follow">Follow ball</span></label>
+      <div class="hint" data-i18n="ui.hint">Click to shoot</div>
     </div>
-    <div id="scenarios">
-      <h3>سيناريوهات التحقق</h3>
+    <div id="scenarios" data-i18n-dir>
+      <h3 data-i18n="scen.title">سيناريوهات التحقق</h3>
       <div id="scenario-list"></div>
-      <button id="free-mode">وضع حر (إيقاف السيناريو)</button>
-      <button id="export-csv">تصدير بيانات التشغيل CSV</button>
-      <div id="rec-status">اختر سيناريو للتشغيل والتسجيل</div>
+      <button id="free-mode" data-i18n="scen.free">وضع حر (إيقاف السيناريو)</button>
+      <button id="export-csv" data-i18n="scen.export">تصدير بيانات التشغيل CSV</button>
+      <div id="rec-status"></div>
+      <button id="lang-toggle" data-i18n="lang.switch">English</button>
     </div>
-    <div id="cam-help">
-      <div><kbd>↑↓←→</kbd> orbit · <kbd>W A S D</kbd> pan · <kbd>Q / E</kbd> zoom</div>
-      <div><kbd>click</kbd> or <kbd>Space</kbd> shoot · <kbd>R</kbd> reset · <kbd>drag</kbd>/<kbd>scroll</kbd> mouse</div>
+    <div id="cam-help" data-i18n-dir>
+      <div><kbd>↑↓←→</kbd> <span data-i18n="help.orbit">orbit</span> · <kbd>W A S D</kbd> <span data-i18n="help.pan">pan</span> · <kbd>Q / E</kbd> <span data-i18n="help.zoom">zoom</span></div>
+      <div><kbd data-i18n="help.click">click</kbd> <span data-i18n="help.or">or</span> <kbd data-i18n="help.space">Space</kbd> <span data-i18n="help.shoot">shoot</span> · <kbd>R</kbd> <span data-i18n="help.reset">reset</span> · <kbd data-i18n="help.drag">drag</kbd>/<kbd data-i18n="help.scroll">scroll</kbd> <span data-i18n="help.mouse">mouse</span></div>
     </div>
     <script type="module" src="/src/main.js"></script>
   </body>

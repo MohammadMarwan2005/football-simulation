@@ -19,6 +19,7 @@ import { setupInput } from './input/shoot.js';
 import { setupCameraControls, updateCameraControls } from './input/cameraControls.js';
 import { setupScenarioPanel } from './input/scenarioPanel.js';
 import { createRecorder, recordStep } from './recorder.js';
+import { setupI18n } from './i18n.js';
 import { trackSession } from './sessionTracker.js';
 
 trackSession();
@@ -69,6 +70,7 @@ const trail = createTrail();
 const aim = createAim();
 scene.add(trail.line, aim.line);
 
+setupI18n();
 setupInput(ball, camera, document.querySelector('#app'), () => resetTrail(trail));
 setupCameraControls();
 

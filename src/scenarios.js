@@ -18,7 +18,7 @@ export const scenarios = [
   {
     id: 's1',
     nameAr: 'سقوط حر — تحقق الارتداد',
-    nameEn: 'Free fall bounce decay',
+    nameEn: 'Free fall — bounce decay',
     ball: { r: [0, 5, 0], v: [0, 0, 0], omega: [0, 0, 0] },
     cam: { pos: [6, 3, 4], target: [0, 2.5, 0] },
     duration: 10,
@@ -50,7 +50,7 @@ export const scenarios = [
   {
     id: 's5',
     nameAr: 'اصطدام بكرة عائق',
-    nameEn: 'Obstacle sphere hit',
+    nameEn: 'Sphere obstacle hit',
     ball: { r: [0, 0.11, 0], v: [0.8, 3.5, 12], omega: [0, 0, 0] },
     extraObstacles: [OBSTACLE_SPHERE],
     cam: { pos: [10, 3, 3], target: [0, 1, 6] },
@@ -59,7 +59,7 @@ export const scenarios = [
   {
     id: 's6a',
     nameAr: 'صندوق — إصابة وجه',
-    nameEn: 'Box face hit',
+    nameEn: 'Box — face hit',
     ball: { r: [0, 0.11, 3], v: [0, 3, 12], omega: [0, 0, 0] },
     extraObstacles: [OBSTACLE_BOX],
     cam: { pos: [10, 3, 4], target: [0, 1, 8] },
@@ -68,7 +68,7 @@ export const scenarios = [
   {
     id: 's6b',
     nameAr: 'صندوق — إصابة حافة',
-    nameEn: 'Box edge hit',
+    nameEn: 'Box — edge hit',
     ball: { r: [0, 0.11, 3], v: [0, 6.6, 10], omega: [0, 0, 0] },
     extraObstacles: [OBSTACLE_BOX],
     cam: { pos: [10, 3, 4], target: [0, 2, 8] },
@@ -77,7 +77,7 @@ export const scenarios = [
   {
     id: 's6c',
     nameAr: 'صندوق — إصابة زاوية',
-    nameEn: 'Box corner hit',
+    nameEn: 'Box — corner hit',
     ball: { r: [0, 0.11, 3], v: [2.05, 6.6, 10], omega: [0, 0, 0] },
     extraObstacles: [OBSTACLE_BOX],
     cam: { pos: [10, 3, 4], target: [1, 2, 8] },
@@ -94,7 +94,7 @@ export const scenarios = [
   {
     id: 's8',
     nameAr: 'إطلاق ضحل → تدحرج',
-    nameEn: 'Shallow launch to rolling',
+    nameEn: 'Shallow launch → rolling',
     ball: { r: [0, 0.11, 0], v: [6.76, 1.81, 0], omega: [0, 0, 0] },
     cam: { pos: [20, 12, 25], target: [22, 0, 0] },
     duration: 25,

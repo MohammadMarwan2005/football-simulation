@@ -2,6 +2,7 @@ import { scenarios, applyScenario, removeScenarioObstacles } from '../scenarios.
 import { startRecording, toCSV } from '../recorder.js';
 import { createObstacleMesh } from '../render/meshes.js';
 import { initialBall } from '../state/ball.js';
+import { t, getLang, onLangChange } from '../i18n.js';
 
 // Scenario panel: one button per validation scenario from the study (§8).
 // Clicking a button resets the ball/world to that scenario's initial
@@ -48,13 +49,23 @@ export function setupScenarioPanel({ ball, world, scene, camera, controls, recor
     button.classList.add('active');
   }
 
+  const scenarioButtons = [];
   for (const sc of scenarios) {
     const button = document.createElement('button');
-    button.textContent = sc.nameAr;
-    button.title = sc.nameEn;
     button.addEventListener('click', () => runScenario(sc, button));
     list.appendChild(button);
+    scenarioButtons.push([button, sc]);
   }
+
+  function relabel() {
+    const ar = getLang() === 'ar';
+    for (const [button, sc] of scenarioButtons) {
+      button.textContent = ar ? sc.nameAr : sc.nameEn;
+      button.title = ar ? sc.nameEn : sc.nameAr;
+    }
+  }
+  relabel();
+  onLangChange(relabel);
 
   freeBtn.addEventListener('click', () => {
     clearActive();
@@ -75,11 +86,11 @@ export function setupScenarioPanel({ ball, world, scene, camera, controls, recor
   // Lightweight status readout (polling keeps the recorder itself DOM-free).
   setInterval(() => {
     if (recorder.recording) {
-      status.textContent = `⏺ تسجيل… ${recorder.t.toFixed(1)} ث`;
+      status.textContent = t('scen.recording', { t: recorder.t.toFixed(1) });
     } else if (recorder.rows.length > 0) {
-      status.textContent = `✓ ${recorder.scenarioId}: ${recorder.rows.length} خطوة جاهزة للتصدير`;
+      status.textContent = t('scen.ready', { id: recorder.scenarioId, n: recorder.rows.length });
     } else {
-      status.textContent = 'اختر سيناريو للتشغيل والتسجيل';
+      status.textContent = t('scen.pick');
     }
   }, 250);
 }
